@@ -33,17 +33,15 @@
 	};
 </script>
 
-<h1>this is where you send messages</h1>
-<a href="/create">Create a group</a>
+<h1>Send a new message</h1>
+<a href="/create">Need to create a group? Create one here.</a>
 
-<h1>this is where you send messages</h1>
-
-<div class="sendPage">
+<div class="messagePage">
 	<div class="sendMessage">
 		<h2>Group: {groupData.groupName}</h2>
 		<h2>Invite link:</h2>
 		<form action="/action_page.php">
-			<input type="text" id="fname" name="fname" /><br /><br />
+			<input class="textMessage" type="text" id="fname" name="fname" /><br /><br />
 			<input type="submit" value="Click to send message to {groupData.groupName}" />
 		</form>
 	</div>
@@ -62,7 +60,23 @@
 </div>
 
 <style>
-	.sendPage {
+	.messagePage {
+		display: flex;
 		flex-direction: row;
+		justify-content: space-between
 	}
+	.sendMessage {
+		border: solid black 2px;
+		width: 400px;
+	}
+	.groupInfo {
+		border: solid black 2px;
+		width: 400px;
+	}
+
+	.textMessage {
+		width: 330px;
+		height: 100px;
+	}
+	
 </style>

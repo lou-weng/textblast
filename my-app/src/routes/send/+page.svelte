@@ -1,5 +1,3 @@
-<h1>this is where you send messages</h1>
-<a href="/create">Create a group</a>
 <script>
 	let groupData = {
 		groupName: 'bucs kids',
@@ -34,6 +32,9 @@
 		]
 	};
 </script>
+
+<h1>this is where you send messages</h1>
+<a href="/create">Create a group</a>
 
 <h1>this is where you send messages</h1>
 

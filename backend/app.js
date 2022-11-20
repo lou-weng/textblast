@@ -8,7 +8,20 @@ const app = express();
 app.use(cors())
 const port = 3000;
 
+<<<<<<< HEAD
 const jsonParser = bodyParser.json()
+=======
+const { MongoClient } = require("mongodb");
+const dotenv = require("dotenv");
+dotenv.config();
+
+// const { insertData } = require("insert-data");
+
+// Atlas connection string
+const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PW}@cluster0.poah4et.mongodb.net/?retryWrites=true&w=majority`;
+const client = new MongoClient(url);
+const dbName = "metrohacks_2022";
+>>>>>>> 1cca5b7 (app and connect is a go)
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
@@ -38,10 +51,22 @@ app.post("/register", jsonParser, async (req, res) => {
 
     const hashedPassword = auth.getHashedPassword(password)
 
+<<<<<<< HEAD
     const userObject = {
         "username": username,
         "password": hashedPassword
     }
+=======
+    // Print to the console
+    console.log(myDoc);
+  } catch (err) {
+    console.log(err.stack);
+  } finally {
+    await client.close();
+    console.log("closed");
+  }
+}
+>>>>>>> 1cca5b7 (app and connect is a go)
 
     await auth.createUser(userObject)
     res.status(200)

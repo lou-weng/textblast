@@ -15,8 +15,6 @@ const { MongoClient } = require("mongodb");
 const dotenv = require("dotenv");
 dotenv.config();
 
-// const { insertData } = require("insert-data");
-
 // Atlas connection string
 const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PW}@cluster0.poah4et.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(url);
@@ -58,6 +56,7 @@ app.post("/register", jsonParser, async (req, res) => {
     }
 =======
     // Print to the console
+    console.log(p);
     console.log(myDoc);
   } catch (err) {
     console.log(err.stack);

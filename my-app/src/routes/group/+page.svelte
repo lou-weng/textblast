@@ -24,7 +24,7 @@
 	});
 </script>
 
-{#each $apiData as data}
+<!-- {#each $apiData as data}
 	<p>
 		{data.groupName}
 		{data.Id}
@@ -32,7 +32,8 @@
 			<p>{subscribers.phoneNumber}</p>
 		{/each}
 	</p>
-{/each}
+{/each} -->
+
 <div class="top">
 	<div class="userPage">User Page</div>
 	<div class="signOut">
@@ -66,61 +67,3 @@
 		</table>
 	</div>
 </div>
-
-<style>
-	.userPage {
-		color: green;
-		font-size: 2em;
-		font-weight: bold;
-		font-family: sans-serif;
-	}
-
-	p {
-		text-align: right;
-		color: black;
-		font-size: 1.5em;
-		font-family: sans-serif;
-		padding: 20px;
-	}
-
-	.groupButtons {
-		text-align: left;
-	}
-	.signOut {
-		color: green;
-		font-size: 2em;
-		font-weight: bold;
-		font-family: sans-serif;
-		display: flex;
-		justify-content: space-between;
-	}
-
-	:placeholder-shown {
-		font-size: 1.5em;
-	}
-	.container {
-		display: flex;
-		justify-content: right;
-		border-radius: 10px;
-	}
-
-	tr td:focus {
-		background: #eee;
-	}
-	.tableContent {
-		background: #009579;
-		border-radius: 20px;
-		padding: 15px;
-	}
-	input {
-		font-size: 1.5em;
-	}
-
-	.top {
-		display: flex;
-		justify-content: space-between;
-	}
-	td {
-		text-align: center;
-	}
-</style>

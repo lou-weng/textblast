@@ -1,9 +1,6 @@
 <script>
 	export let type = 'primary';
-	export let flat = false;
-	export let inverse = false;
 	export let buttonName;
-	export let buttonPos;
 </script>
 
 <button class={type}>

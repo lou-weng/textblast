@@ -3,10 +3,9 @@
 	import { writable } from 'svelte/store';
 	import { onMount } from 'svelte';
 	function sendMessage() {
-		console.log(hi);
+		console.log(20);
 	}
 	let columns = ['Group Name', 'Group Id'];
-	let newRow = [...columns];
 	let name = '';
 	let apiData = writable([]);
 

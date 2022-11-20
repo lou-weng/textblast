@@ -10,11 +10,11 @@
 	architecto est corrupti voluptatem.
 </p>
 <div class="signUp">
-    <button on:click={() => sendMessage()}><a href="/group">Sign Up</a></button>
+	<button on:click={() => sendMessage()}><a href="/group">Sign Up</a></button>
 	<!--<Button buttonName={'Sign Up'}/>-->
 </div>
 <div class="signIn">
-    <button on:click={() => sendMessage()}><a href="/send">Sign In</a></button>
+	<button on:click={() => sendMessage()}><a href="/send">Sign In</a></button>
 	<!--<Button buttonName={'Sign In'} on:click={() => sendMessage()}><a href="/send">Send!</a> />-->
 </div>
 

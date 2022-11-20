@@ -1,6 +1,6 @@
 <script>
 	import Button from '../../components/Button.svelte';
-	import SmoothCorners from "svelte-smooth-corners";
+	import SmoothCorners from 'svelte-smooth-corners';
 	function addRow() {
 		data = [...data, [...newRow]];
 		newRow = columns;
@@ -17,12 +17,11 @@
 	let newRow = [...columns];
 	let name = '';
 </script>
+
 <div class="top">
-	<div class="userPage">
-	User Page
-	</div>
+	<div class="userPage">User Page</div>
 	<div class="signOut">
-	<a href="/">Sign Out</a>
+		<a href="/">Sign Out</a>
 	</div>
 </div>
 <p>List of Groups</p>
@@ -41,7 +40,7 @@
 					<th>{column}</th>
 				{/each}
 			</tr>
-	
+
 			{#each data as row}
 				<tr>
 					{#each row as cell}
@@ -56,7 +55,7 @@
 				{/each}
 				<button on:click={addRow}>add</button>
 			</tr>
-		</table>	
+		</table>
 	</div>
 </div>
 
@@ -100,15 +99,15 @@
 	tr td:focus {
 		background: #eee;
 	}
-	.tableContent {	
-		background: #009579; 
+	.tableContent {
+		background: #009579;
 		border-radius: 20px;
 		padding: 15px;
-	}	
+	}
 	input {
 		font-size: 1.5em;
 	}
-	
+
 	.top {
 		display: flex;
 		justify-content: space-between;

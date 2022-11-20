@@ -1,9 +1,8 @@
-// import express from "express";
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const auth = require("./auth");
-const group = require("./insert-data");
+const groupFunctions = require("./insert-data");
 
 const app = express();
 app.use(cors());
@@ -49,7 +48,15 @@ app.post("/register", jsonParser, async (req, res) => {
   res.send("Successfully registered!");
 });
 
-app.post("/create-group", jsonParser, async (req, res) => {
+// getting group
+app.get("/group", async (req, res) => {
+  const groupID = req.body.groupID;
+  const group = await groupFunctions.getGroup(groupID);
+  res.send("getGroup: " + group);
+});
+
+// adding group
+app.post("/group", jsonParser, async (req, res) => {
   const { gID, gName } = req.body;
 
   const groupDocument = {
@@ -57,7 +64,7 @@ app.post("/create-group", jsonParser, async (req, res) => {
     gName: gName,
   };
 
-  await auth.createGroup(groupDocument);
+  await groupFunctions.createGroup(groupDocument);
   res.status(200);
-  res.send("Group created!");
+  res.send("group creation success");
 });

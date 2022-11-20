@@ -1,65 +1,53 @@
-const DataModel = require("./data-model");
-// CRUD
+const { MongoClient } = require("mongodb");
+const dotenv = require("dotenv");
+dotenv.config();
 
-// get all groups
-exports.getAllGroups = async () => {
-  return await DataModel.find();
-};
+// Atlas connection string
+const URL = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PW}@cluster0.poah4et.mongodb.net/?retryWrites=true&w=majority`;
+const dbName = "metrohacks_2022";
 
-// SUBSCRIBERS
-// create subscriber
-exports.createSubscriber = (sID, sPhone) => {
-  let subscriber = {
-    subscriberID: sID,
-    subscriberPhone: sPhone,
-  };
-  this.updateGroup(groupMembers, subscriber);
-};
+async function createGroup(gID, gName) {
+  const client = new MongoClient(URL);
+  try {
+    const groupCollection = client.db(dbName).collection("groups");
 
-// read subscriber
-exports.getSubscriberById = async (sID) => {
-  return await DataModel.findById(sID);
-};
+    let group = {
+      groupID: gID,
+      groupName: gName,
+      members: null,
+      messages: null,
+    };
+    return await groupCollection.insertOne(group);
+  } catch (e) {
+    console.log(
+      "The transaction was aborted due to an unexpected error: " + e.stack
+    );
+  } finally {
+    await client.close();
+    console.log("closed client");
+  }
+}
 
-//MESSAGES
-// create message
-exports.createMessage = async (mID, mDateTime, mText) => {
-  let message = {
-    messageID: mID,
-    messageDateTime: mDateTime,
-    messageText: mText,
-  };
-  this.updateGroup(messages, message);
-};
+async function getGroup(groupID) {
+  const client = new MongoClient(URL);
+  try {
+    const groupCollection = client.db(dbName).collection("groups");
+    const group = {
+      groupID: groupID,
+    };
 
-// read message
-exports.getMessageById = async (mID) => {
-  return await DataModel.findById(mID);
-};
+    return await groupCollection.findOne(group);
+  } catch (e) {
+    console.log(
+      "The transaction was aborted due to an unexpected error: " + e.stack
+    );
+  } finally {
+    await client.close();
+    console.log("closed client");
+  }
+}
 
-// GROUPS
-
-// gMembers = arrayOfSubscriberDocuments
-// messages = arrayOfMessages
-// callback for these functions?
-
-//create, read, and update
-exports.createGroup = async (gID, gName) => {
-  // Construct a group document
-  let groupDocument = {
-    groupID: gID,
-    groupName: gName,
-    members: null,
-    messages: null,
-  };
-
-  return group;
-};
-
-exports.getGroupById = async (gID) => {
-  return await DataModel.findById(gID);
-};
-
-exports.updateGroup = async (attributeID, attributeUpdate) => {
-  return await DataModel.findByIdAndUpdate(attributeID, attributeUpdate);
+module.exports = {
+  createGroup,
+  getGroup,
 };

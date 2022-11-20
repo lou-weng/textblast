@@ -1,23 +1,38 @@
 <script>
 	import Button from '../../components/Button.svelte';
-	import SmoothCorners from 'svelte-smooth-corners';
-	function addRow() {
-		data = [...data, [...newRow]];
-		newRow = columns;
-	}
+	import { writable } from 'svelte/store';
+	import { onMount } from 'svelte';
 	function sendMessage() {
 		console.log(hi);
 	}
-	let columns = ['Group Name', 'Phone Number'];
-	let data = [
-		['John', '(353) 01 222 3333'],
-		['Sarah', '(01) 22 888 4444'],
-		['Afshin', '(353) 22 87 8356']
-	];
+	let columns = ['Group Name', 'Group Id'];
 	let newRow = [...columns];
 	let name = '';
+	let apiData = writable([]);
+
+	onMount(async () => {
+		fetch('http://localhost:3000/test')
+			.then((response) => response.json())
+			.then((data) => {
+				console.log(data.groups);
+				apiData.set(data.groups);
+			})
+			.catch((error) => {
+				console.log(error);
+				return [];
+			});
+	});
 </script>
 
+{#each $apiData as data}
+	<p>
+		{data.groupName}
+		{data.Id}
+		{#each data.subscribers as subscribers}
+			<p>{subscribers.phoneNumber}</p>
+		{/each}
+	</p>
+{/each}
 <div class="top">
 	<div class="userPage">User Page</div>
 	<div class="signOut">
@@ -41,20 +56,13 @@
 				{/each}
 			</tr>
 
-			{#each data as row}
+			{#each $apiData as row}
 				<tr>
-					{#each row as cell}
-						<td contenteditable="true" bind:innerHTML={cell} />
-					{/each}
-					<button on:click={() => sendMessage()}><a href="/send">Send!</a></button>
+					<td>{row.groupName}</td>
+					<td>{row.groupId}</td>
+					<td><button on:click={() => sendMessage()}><a href="/send">Send!</a></button></td>
 				</tr>
 			{/each}
-			<tr style="color: black">
-				{#each newRow as column}
-					<td contenteditable="true" bind:innerHTML={column} />
-				{/each}
-				<button on:click={addRow}>add</button>
-			</tr>
 		</table>
 	</div>
 </div>
@@ -111,5 +119,8 @@
 	.top {
 		display: flex;
 		justify-content: space-between;
+	}
+	td {
+		text-align: center;
 	}
 </style>

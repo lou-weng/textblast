@@ -1,5 +1,6 @@
 <script>
 	import Button from '../components/Button.svelte';
+	import { writable } from 'svelte/store';
 </script>
 
 <h1>Text Blast</h1>

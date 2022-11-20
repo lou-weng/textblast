@@ -1,4 +1,22 @@
 <script>
+	import { onMount } from 'svelte';
+	import { writable } from 'svelte/store';
+	let apiData = writable([]);
+
+	onMount(async () => {
+		fetch(`http://localhost:3000/test`)
+			.then((res) => res.json())
+			.then((data) => {
+				console.log(data.groups[0]);
+				apiData.set(data.groups[0]);
+			})
+			.catch((e) => {
+				console.log(e);
+				return [];
+			});
+	});
+	console.log($apiData.groupName);
+
 	let groupData = {
 		groupName: 'bucs kids',
 		groupId: 1,
@@ -34,11 +52,10 @@
 </script>
 
 <h1>Send a new message</h1>
-<a href="/create">Need to create a group? Create one here.</a>
 
 <div class="messagePage">
 	<div class="sendMessage">
-		<h2>Group: {groupData.groupName}</h2>
+		<h2>Group: {$apiData.groupName}</h2>
 		<h2>Invite link:</h2>
 		<form action="/action_page.php">
 			<input class="textMessage" type="text" id="fname" name="fname" /><br /><br />
@@ -49,12 +66,12 @@
 	<div class="groupInfo">
 		<h1>Group Information</h1>
 		<ul>
-			{#each groupData.subscribers as subscriber}
+			<!-- {#each $apiData.subscribers as subscriber}
 				<li>
 					{subscriber.firstName}
 					{subscriber.lastName} ({subscriber.phoneNumber})
 				</li>
-			{/each}
+			{/each} -->
 		</ul>
 	</div>
 </div>
@@ -63,7 +80,7 @@
 	.messagePage {
 		display: flex;
 		flex-direction: row;
-		justify-content: space-between
+		justify-content: space-between;
 	}
 	.sendMessage {
 		border: solid black 2px;
@@ -78,5 +95,4 @@
 		width: 330px;
 		height: 100px;
 	}
-	
 </style>
